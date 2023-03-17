@@ -1,4 +1,4 @@
-namespace LoanHouse.Server.Records;
+namespace LoanHouse.Shared.Records;
 
 public class PagosRecord
 {
