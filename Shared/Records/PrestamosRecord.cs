@@ -1,5 +1,5 @@
 namespace LoanHouse.Shared.Records;
-public class PrestamosRecords
+public class PrestamosRecord
 {
     public int Prestamos_id { get; set; }
     public int Fecha_prestamo { get; set; }
