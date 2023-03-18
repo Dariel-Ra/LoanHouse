@@ -7,7 +7,7 @@ public class PrestamosRecord
     public int Tasa_interes { get; set; }
     public int Plazo { get; set; }
     public int Cliente_id { get; set; }
-    public virtual ClienteRecord ClienteRecord { get; set; } = null!;
+    public virtual ClienteRecord Cliente { get; set; } = null!;
     public int Usuario_id { get; set; }
-    public virtual UsuarioRecord UsuarioRecord { get; set; } = null!;
+    public virtual UsuarioRecord Usuario { get; set; } = null!;
 }
