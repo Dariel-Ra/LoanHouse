@@ -8,7 +8,7 @@ public class Transaccion{
     public int Fecha { get; set; }
     public float Monto { get; set; }
     public int Prestamos_id { get; set; }
-    public virtual Prestamos Prestamos { get; set; } = null!;
+    public virtual Prestamo Prestamo { get; set; } = null!;
     public int Usuario_id { get; set; }
-    public virtual Prestamos Usuario { get; set; } = null!;
+    public virtual Usuario Usuario { get; set; } = null!;
 }

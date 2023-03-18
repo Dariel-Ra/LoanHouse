@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LoanHouse.Server.Models;
     
-public class Prestamos
+public class Prestamo
 {
     [Key]
     public int Prestamos_id { get; set; }
