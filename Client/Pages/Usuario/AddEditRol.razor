@@ -1,0 +1,48 @@
+@page "/users/crear"
+@page "/users/editar/{Id:int}"
+<EditForm Model="@Usuario" OnValidSubmit="Send">
+<h1>@Titulo</h1>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="form-group">
+        <label>Nombre</label>
+        <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
+    </div>
+    
+    
+    <button type="submit" class="mt-2 btn btn-success">Ok</button>
+</EditForm>
+
+@code
+{
+[Parameter]
+public int Id { get; set; } = 0;
+
+public string Titulo => Id>0? "Editar rol":"Crear usuario";
+
+public UsuarioUpdateRequest Usuario { get; set; } = new UsuarioUpdateRequest();
+
+protected override async Task OnInitializedAsync()
+{
+    if(Id!=0){
+        var resultado = await usuariosManager.GetByIdAsync(Id);
+        if(resultado.Succeeded){
+            Usuario.Id = resultado.Data.Id;
+            Usuario.Name = resultado.Data.Name;
+            Usuario.Nickname = resultado.Data.Nickname;
+            Usuario.Password = resultado.Data.Password;
+            StateHasChanged();
+        }
+    }
+}
+        
+public async void Send()
+{
+    var resultado = await usuariosManager.CreateAsync(Usuario);
+
+    if(resultado.Succeeded) urlHelper.NavigateTo("/users");
+
+}
+
+}
+

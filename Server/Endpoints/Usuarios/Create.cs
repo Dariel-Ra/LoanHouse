@@ -1,3 +1,4 @@
+using System.Net.Cache;
 using System.Data;
 using Ardalis.ApiEndpoints;
 using LoanHouse.Server.Context;
@@ -9,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using LoanHouse.Shared.Routes;
 
 
-namespace LoanHouse.Server.Endpoints.UsuariosRoles;
+namespace LoanHouse.Server.Endpoints.Usuarios;
 
-using Request = UsuarioRolCreateRequest;
+using Request = UsuarioCreateRequest;
 using Respuesta = Result<int>;
 
 public class Create : EndpointBaseAsync.WithRequest<Request>.WithActionResult<Respuesta>
@@ -22,20 +23,21 @@ public class Create : EndpointBaseAsync.WithRequest<Request>.WithActionResult<Re
     {
         this.dbContext = dbContext;
     }
-    [HttpPost(UsuarioRolRouteManager.BASE)]
+    [HttpPost(UsuarioRouteManager.BASE)]
     public override async Task<ActionResult<Respuesta>> HandleAsync(Request request, CancellationToken cancellationToken = default)
     {
         try
         {
             #region  Validaciones
-            var rol = await dbContext.UsuariosRoles.FirstOrDefaultAsync(r => r.Nombre.ToLower() == request.Nombre.ToLower(),cancellationToken); 
-            if(rol != null)
-                return Respuesta.Fail($"Ya existe un rol con el nombre '({request.Nombre})'.");
+            var usuario = await dbContext.Usuarios.FirstOrDefaultAsync(
+                r => r.Name.ToLower() == request.Name.ToLower(),cancellationToken); 
+            if(usuario != null)
+                return Respuesta.Fail($"Ya existe un rol con el nombre '({request.Name})'.");
             #endregion
-            rol = UsuarioRol.Crear(request);
-            dbContext.UsuariosRoles.Add(rol);
+            usuario = Usuario.Crear(request);
+            dbContext.Usuarios.Add(usuario);
             await dbContext.SaveChangesAsync(cancellationToken);
-            return Respuesta.Success(rol.Id);
+            return Respuesta.Success(usuario.Id);
         }
         catch(Exception e){
             return Respuesta.Fail(e.Message);

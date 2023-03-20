@@ -5,9 +5,9 @@ public class ClienteRecord
     public ClienteRecord(){
         
     }
-    public ClienteRecord(int cliente_id, string nombre, string apellido, string dirección, string cedula, string telefono)
+    public ClienteRecord(int id, string nombre, string apellido, string dirección, string cedula, string telefono)
     {
-        Cliente_id = cliente_id;
+        Id = id;
         Nombre = nombre;
         Apellido = apellido;
         Dirección = dirección;
@@ -15,7 +15,7 @@ public class ClienteRecord
         Telefono = telefono;
     }
 
-    public int Cliente_id { get; set; }
+    public int Id { get; set; }
     public string Nombre {get; set; } = null!;
     public string Apellido {get; set; } = null!;
     public string Dirección {get; set; } = null!;

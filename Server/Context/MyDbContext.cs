@@ -26,7 +26,7 @@ public class MyDbContext : DbContext, IMyDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(config.GetConnectionString("CRUD"));
+        optionsBuilder.UseSqlServer(config.GetConnectionString("sqlServerDB"));
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
