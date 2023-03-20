@@ -3,12 +3,38 @@
 <button class="btn btn-outline-primary" @onclick="Agregar">Agregar</button>
 @if(Usuarios != null)
 {
-    <ul>
-        @foreach (var rol in Usuarios)
-        {
-            <li>@rol.Name <span class="btn btn-outline-warning" @onclick="()=>Editar(rol.Id)">Editar</span> </li>
-        }
-    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Nickname</th>
+                <th>Rol</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Usuarios){
+            <tr>
+                <td>@usuario.Id</td>
+                <td>@usuario.Name</td>
+                <td>@usuario.Nickname</td>
+                <td>@usuario.UsuarioRol.Nombre</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" @onclick="()=>Editar(usuario.Id)">
+
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {

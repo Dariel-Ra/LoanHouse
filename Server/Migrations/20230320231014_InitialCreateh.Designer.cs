@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanHouse.Server.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230320191716_InitialCreateh")]
+    [Migration("20230320231014_InitialCreateh")]
     partial class InitialCreateh
     {
         /// <inheritdoc />

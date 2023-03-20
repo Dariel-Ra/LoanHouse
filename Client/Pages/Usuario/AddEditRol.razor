@@ -50,6 +50,7 @@ protected override async Task OnInitializedAsync()
             Usuario.Name = resultado.Data.Name;
             Usuario.Nickname = resultado.Data.Nickname;
             Usuario.Password = resultado.Data.Password;
+            Usuario.UsuarioRolId = resultado.Data.UsuarioRol.Id;
             StateHasChanged();
         }
     }

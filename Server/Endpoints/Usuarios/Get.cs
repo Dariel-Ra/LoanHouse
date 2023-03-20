@@ -24,6 +24,7 @@ public class Get : EndpointBaseAsync.WithoutRequest.WithActionResult<Respuesta>
        try
        {
         var roles = await dbContext.Usuarios
+       .Include(u=>u.UsuarioRol)
        .Select(rol=>rol.ToRecord())
        .ToListAsync(cancellationToken);
 
