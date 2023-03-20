@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanHouse.Server.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230319054419_InitialCreateh")]
+    [Migration("20230320191716_InitialCreateh")]
     partial class InitialCreateh
     {
         /// <inheritdoc />
@@ -41,19 +41,11 @@ namespace LoanHouse.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ciudad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Dirección")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pais")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -5,11 +5,27 @@
     <DataAnnotationsValidator/>
     <ValidationSummary/>
     <div class="form-group">
-        <label>Nombre</label>
-        <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
-        <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
-        <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
-        <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
+        <div class="row g3">
+            <div class="col-md-6 col-lg-6">
+                <label>Nombre</label>
+                <InputText class="form-control" @bind-Value="Usuario.Name"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Nickname</label>
+                <InputText class="form-control" @bind-Value="Usuario.Nickname"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Password</label>
+                <InputText class="form-control" @bind-Value="Usuario.Password"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Rol</label>
+                <select @bind="@Usuario.UsuarioRolId" class="form-select" id="validationDefault01">
+                <option selected disabled value="">Elegir...</option>
+                <option selected value="1">1</option>
+                </select>
+            </div>
+        </div>
     </div>
     
     

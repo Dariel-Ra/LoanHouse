@@ -7,8 +7,8 @@ using LoanHouse.Shared.Wrapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LoanHouse.Server.Endpoints.Usuarios;
-using Respuesta = ResultList<UsuarioRecord>;
+namespace LoanHouse.Server.Endpoints.Clientes;
+using Respuesta = ResultList<ClienteRecord>;
 
 public class Get : EndpointBaseAsync.WithoutRequest.WithActionResult<Respuesta>
 {
@@ -18,12 +18,12 @@ public class Get : EndpointBaseAsync.WithoutRequest.WithActionResult<Respuesta>
     {
         this.dbContext = dbContext;
     }
-    [HttpGet(UsuarioRouteManager.BASE)]
+    [HttpGet(ClienteRouteManager.BASE)]
     public override async Task<ActionResult<Respuesta>> HandleAsync(CancellationToken cancellationToken = default)
     {
        try
        {
-        var roles = await dbContext.Usuarios
+        var roles = await dbContext.Clientes
        .Select(rol=>rol.ToRecord())
        .ToListAsync(cancellationToken);
 

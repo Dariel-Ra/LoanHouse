@@ -1,4 +1,4 @@
-namespace LoanHouse.Shared.Records;
+namespace LoanHouse.Shared.Requests;
 
 public class ClienteCreateRequest
 {

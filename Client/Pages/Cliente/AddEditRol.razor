@@ -1,0 +1,75 @@
+@page "/clientes/crear"
+@page "/clientes/editar/{Id:int}"
+<EditForm Model="@Rol" OnValidSubmit="Send">
+<h1>@Titulo</h1>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="form-group">
+        <div class="row g3">
+            <div class="col-md-6 col-lg-6">
+                <label>Nombre</label>
+                <InputText class="form-control" @bind-Value="Rol.Nombre"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Apellido</label>
+                <InputText class="form-control" @bind-Value="Rol.Apellido"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Cedula</label>
+                <InputText class="form-control" @bind-Value="Rol.Cedula"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Telefono</label>
+                <InputText class="form-control" @bind-Value="Rol.Telefono"></InputText>
+            </div>
+            <div class="col-md-12 col-lg-12">
+                <label>Dirección</label>
+                <InputText class="form-control" @bind-Value="Rol.Dirección"></InputText>
+            </div>
+        </div>
+        
+        
+        
+
+    </div>
+
+    
+    
+    <button type="submit" class="mt-2 btn btn-success">Ok</button>
+</EditForm>
+
+@code
+{
+[Parameter]
+public int Id { get; set; } = 0;
+
+public string Titulo => Id>0? "Editar rol":"Crear rol";
+
+public ClienteUpdateRequest Rol { get; set; } = new ClienteUpdateRequest();
+
+protected override async Task OnInitializedAsync()
+{
+    if(Id!=0){
+        var resultado = await clientesManager.GetByIdAsync(Id);
+        if(resultado.Succeeded){
+            Rol.Id = resultado.Data.Id;
+            Rol.Nombre = resultado.Data.Nombre;
+            Rol.Apellido = resultado.Data.Apellido;
+            Rol.Dirección = resultado.Data.Dirección;
+            Rol.Cedula = resultado.Data.Cedula;
+            Rol.Telefono = resultado.Data.Telefono;
+            StateHasChanged();
+        }
+    }
+}
+        
+public async void Send()
+{
+    var resultado = await clientesManager.CreateAsync(Rol);
+
+    if(resultado.Succeeded) urlHelper.NavigateTo("/clientes");
+
+}
+
+}
+

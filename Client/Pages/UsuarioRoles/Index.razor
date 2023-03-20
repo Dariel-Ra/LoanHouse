@@ -1,14 +1,43 @@
 @page "/roles"
 <h1>Roles</h1>
-<button class="btn btn-outline-primary" @onclick="Agregar">Agregar</button>
+<button class="btn btn-primary" @onclick="Agregar">Agregar</button>
 @if(Roles != null)
 {
-    <ul>
+    <table class="table">
+    <thead class="">
+        <tr>
+            <th>#</th>
+            <th>Rol</th>
+            <th>Permiso para crear</th>
+            <th>Permiso para editar</th>
+            <th>Permiso para eliminar</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var rol in Roles)
         {
-            <li>@rol.Nombre <span class="btn btn-outline-warning" @onclick="()=>Editar(rol.Id)">Editar</span> </li>
+            <tr>
+                <td>@rol.Id</td>
+                <td>@rol.Nombre</td>
+                <td class='@(rol.PermisoParaCrear==true? "table-info":"table-danger")  text-center'>@rol.PermisoParaCrear</td>
+                <td class='@(rol.PermisoParaEditar==true? "table-info":"table-danger")  text-center'>@rol.PermisoParaEditar</td>
+                <td class='@(rol.PermisoParaEliminar==true? "table-info":"table-danger")  text-center'>@rol.PermisoParaEliminar</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" @onclick="()=>Editar(rol.Id)">
+
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
         }
-    </ul>
+    </tbody>
+</table>
 }
 else
 {

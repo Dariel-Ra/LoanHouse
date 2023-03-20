@@ -29,7 +29,14 @@ public class Usuario
 
     public static Usuario Crear(UsuarioCreateRequest request)
     {
-        return new Usuario(request.UsuarioRolId,request.Name, request.Nickname, request.Password);
+            return new Usuario(){ 
+             
+            UsuarioRolId = request.UsuarioRolId,
+            Name = request.Name,
+            Nickname = request.Nickname, 
+            Password = request.Password 
+            };
+        // return new Usuario(request.UsuarioRolId,request.Name, request.Nickname, request.Password);
     }
     public void Modificar(UsuarioUpdateRequest request){
         if(Name!=request.Name) 

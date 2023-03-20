@@ -5,14 +5,15 @@ public class ClienteRecord
     public ClienteRecord(){
         
     }
+
     public ClienteRecord(int id, string nombre, string apellido, string dirección, string cedula, string telefono)
     {
-        Id = id;
-        Nombre = nombre;
-        Apellido = apellido;
-        Dirección = dirección;
-        Cedula = cedula;
-        Telefono = telefono;
+        this.Id = id;
+        this.Nombre = nombre;
+        this.Apellido = apellido;
+        this.Dirección = dirección;
+        this.Cedula = cedula;
+        this.Telefono = telefono;
     }
 
     public int Id { get; set; }

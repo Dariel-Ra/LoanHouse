@@ -1,0 +1,69 @@
+@page "/clientes"
+<h1>Clientes</h1>
+<button class="btn btn-primary" @onclick="Agregar">Agregar</button>
+@if(Roles != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Dirección</th>
+                <th>Cedula</th>
+                <th>Telefono</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rol in Roles){
+            <tr>
+                <td>@rol.Id</td>
+                <td>@rol.Nombre</td>
+                <td>@rol.Apellido</td>
+                <td>@rol.Dirección</td>
+                <td>@rol.Cedula</td>
+                <td>@rol.Telefono</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" @onclick="()=>Editar(rol.Id)">
+
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Cargando..</p>
+}
+
+@code
+{
+    public List<ClienteRecord>? Roles { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await clientesManager.GetAsync();
+        if(response.Succeeded){
+            Roles = response.Items.ToList();
+        }
+    }
+
+    public void Agregar()
+    {
+        urlHelper.NavigateTo("/clientes/crear",false);
+    }
+    public void Editar(int Id)
+    {
+        urlHelper.NavigateTo($"/clientes/editar/{Id}",false);
+    }
+}
+
+
