@@ -11,4 +11,5 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<IUsuarioRolManager,UsuarioRolManager>();
 builder.Services.AddScoped<IUsuarioManager,UsuarioManager>();
 builder.Services.AddScoped<IClienteManager,ClienteManager>();
+builder.Services.AddScoped<IPrestamoManager,PrestamoManager>();
 await builder.Build().RunAsync();

@@ -1,0 +1,67 @@
+@page "/prestamos"
+<h1>Usuarios</h1>
+<button class="btn btn-outline-primary" @onclick="Agregar">Agregar</button>
+@if(Prestamos != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Prestamo</th>
+                <th>Id Cliente</th>
+                <th>Cliente</th>
+                <th>Nickname</th>
+                <th>Fecha</th>
+                <th>Empleado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prestamo in Prestamos){
+            <tr>
+                <td>@prestamo.Id</td>
+                <td>@prestamo.Cliente.Id</td>
+                <td>@prestamo.Cliente.Nombre</td>
+                <td>@prestamo.Fecha_prestamo</td>
+                <td>@prestamo.Usuario.Name</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" @onclick="()=>Editar(prestamo.Id)">
+
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-danger">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Cargando..</p>
+}
+
+@code
+{
+    public List<PrestamoRecord>? Prestamos { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await prestamosManager.GetAsync();
+        if(response.Succeeded){
+            Prestamos = response.Items.ToList();
+        }
+    }
+
+    public void Agregar()
+    {
+        urlHelper.NavigateTo("/prestamos/crear",false);
+    }
+    public void Editar(int Id)
+    {
+        urlHelper.NavigateTo($"/prestamos/editar/{Id}",false);
+    }
+}
+
+

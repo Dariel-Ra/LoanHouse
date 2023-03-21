@@ -1,0 +1,80 @@
+@page "/prestamos/crear"
+@page "/prestamos/editar/{Id:int}"
+<EditForm Model="@Prestamo" OnValidSubmit="Send">
+<h1>@Titulo</h1>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="form-group">
+        <div class="row g3">
+            <div class="col-md-6 col-lg-6">
+                <label>Cliente</label>
+                <select @bind="@Prestamo.ClienteId" class="form-select" id="validationDefault01">
+                <option selected disabled value="">Elegir...</option>
+                <option selected value="1">1</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Usuario</label>
+                <select @bind="@Prestamo.UsuarioId" class="form-select" id="validationDefault01">
+                <option selected disabled value="">Elegir...</option>
+                <option selected value="1">1</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Fecha de Prestamo</label>
+                <InputText class="form-control" @bind="@Prestamo.Fecha_prestamo"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Tasa de Interes</label>
+                <InputText class="form-control" @bind="@Prestamo.Tasa_interes"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Monto</label>
+                <InputText class="form-control" @bind="@Prestamo.Monto"></InputText>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label>Plazo</label>
+                <InputText class="form-control" @bind="@Prestamo.Plazo"></InputText>
+            </div>
+        </div>
+    </div>
+    
+    
+    <button type="submit" class="mt-2 btn btn-success">Ok</button>
+</EditForm>
+
+@code
+{
+[Parameter]
+public int Id { get; set; } = 0;
+
+public string Titulo => Id>0? "Editar Prestamo":"Hacer Prestamo";
+
+public PrestamoUpdateRequest Prestamo { get; set; } = new PrestamoUpdateRequest();
+
+protected override async Task OnInitializedAsync()
+{
+    if(Id!=0){
+        var resultado = await prestamosManager.GetByIdAsync(Id);
+        if(resultado.Succeeded){
+            Prestamo.Id = resultado.Data.Id;
+            Prestamo.Fecha_prestamo = resultado.Data.Fecha_prestamo;
+            Prestamo.Monto = resultado.Data.Monto;
+            Prestamo.Tasa_interes = resultado.Data.Tasa_interes;
+            Prestamo.ClienteId = resultado.Data.Cliente.Id;
+            Prestamo.UsuarioId = resultado.Data.Usuario.Id;
+            StateHasChanged();
+        }
+    }
+}
+        
+public async void Send()
+{
+    var resultado = await prestamosManager.CreateAsync(Prestamo);
+
+    if(resultado.Succeeded) urlHelper.NavigateTo("/prestamos");
+
+}
+
+}
+

@@ -28,3 +28,10 @@ public class ClienteRouteManager:RouteApiBase
    public const string GetById = $"{BASE}/{IdParameter}";// /api/roles/{Id:int}
    public static string BuildRoute(int Id) => GetById.Replace(IdParameter,Id.ToString());
 }
+
+public class PrestamoRouteManager:RouteApiBase
+{
+   public const string BASE = $"{API}/prestamos"; 
+   public const string GetById = $"{BASE}/{IdParameter}";// /api/roles/{Id:int}
+   public static string BuildRoute(int Id) => GetById.Replace(IdParameter,Id.ToString());
+}
