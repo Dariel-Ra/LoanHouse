@@ -25,7 +25,7 @@ public class Get : EndpointBaseAsync.WithoutRequest.WithActionResult<Respuesta>
        {
         var roles = await dbContext.Prestamos
        .Include(u=>u.Usuario)
-       .Include(u=>u.Cliente)
+       .Include(c=>c.Cliente)
        .Select(rol=>rol.ToRecord())
        .ToListAsync(cancellationToken);
 

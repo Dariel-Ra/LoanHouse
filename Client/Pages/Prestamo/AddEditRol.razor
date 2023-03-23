@@ -10,31 +10,41 @@
                 <label>Cliente</label>
                 <select @bind="@Prestamo.ClienteId" class="form-select" id="validationDefault01">
                 <option selected disabled value="">Elegir...</option>
-                <option selected value="1">1</option>
+                @if(Clientes!=null){
+                    @foreach (var cliente in Clientes)
+                    {
+                        <option selected value="@cliente.Id">@cliente.Nombre</option>
+                    }
+                }
                 </select>
             </div>
             <div class="col-md-6 col-lg-6">
-                <label>Usuario</label>
+                <label>Usuario</label>                                
                 <select @bind="@Prestamo.UsuarioId" class="form-select" id="validationDefault01">
                 <option selected disabled value="">Elegir...</option>
-                <option selected value="1">1</option>
+                @if(Usuarios!=null){
+                    @foreach (var usuario in Usuarios)
+                    {
+                        <option selected value="@usuario.Id">@usuario.Name</option>
+                    }
+                }
                 </select>
             </div>
             <div class="col-md-6 col-lg-6">
                 <label>Fecha de Prestamo</label>
-                <InputText class="form-control" @bind="@Prestamo.Fecha_prestamo"></InputText>
+                <InputText class="form-control" @bind-value="Prestamo.Fecha_prestamo"></InputText>
             </div>
             <div class="col-md-6 col-lg-6">
                 <label>Tasa de Interes</label>
-                <InputText class="form-control" @bind="@Prestamo.Tasa_interes"></InputText>
+                <InputText class="form-control" @bind-value="@Prestamo.Tasa_interes"></InputText>
             </div>
             <div class="col-md-6 col-lg-6">
                 <label>Monto</label>
-                <InputText class="form-control" @bind="@Prestamo.Monto"></InputText>
+                <InputText class="form-control" @bind-value="@Prestamo.Monto"></InputText>
             </div>
             <div class="col-md-6 col-lg-6">
                 <label>Plazo</label>
-                <InputText class="form-control" @bind="@Prestamo.Plazo"></InputText>
+                <InputText class="form-control" @bind-value="@Prestamo.Plazo"></InputText>
             </div>
         </div>
     </div>
@@ -50,10 +60,24 @@ public int Id { get; set; } = 0;
 
 public string Titulo => Id>0? "Editar Prestamo":"Hacer Prestamo";
 
+public List<ClienteRecord> Clientes {get;set;} = new List<ClienteRecord>();
+
+public List<UsuarioRecord> Usuarios {get;set;} = new List<UsuarioRecord>();
+
 public PrestamoUpdateRequest Prestamo { get; set; } = new PrestamoUpdateRequest();
 
 protected override async Task OnInitializedAsync()
 {
+    var response_cliente = await clientesManager.GetAsync();
+        if(response_cliente.Succeeded){
+            Clientes = response_cliente.Items.ToList();
+        }
+
+    var response_usuario = await usuariosManager.GetAsync();
+        if(response_usuario.Succeeded){
+            Usuarios = response_usuario.Items.ToList();
+        }
+
     if(Id!=0){
         var resultado = await prestamosManager.GetByIdAsync(Id);
         if(resultado.Succeeded){
